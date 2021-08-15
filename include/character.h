@@ -5,7 +5,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <string>
-#include <bits/stdc++.h>
 
 #include "clickable.h"
 

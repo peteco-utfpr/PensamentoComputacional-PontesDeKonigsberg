@@ -1,11 +1,11 @@
 # Name of the project
-PROJECT_NAME=
+PROJECT_NAME=pontes.exe
 
 # .cpp Files
 CPP_SOURCE=$(wildcard ./source/*.cpp)
 
-# .hpp Files
-HPP_SOURCE=$(wildcard ./include/*.hpp)
+# .h Files
+H_SOURCE=$(wildcard ./include/*.h)
 
 # Object Files
 OBJ=$(subst .cpp,.o,$(subst source,objects,$(CPP_SOURCE)))
@@ -14,11 +14,11 @@ OBJ=$(subst .cpp,.o,$(subst source,objects,$(CPP_SOURCE)))
 CC=g++
 
 # Flags for Compiler
-CC_FLAGS=-c -I ./source/
+CC_FLAGS=-c -I ./include/
 
 
 # Linker Flags
-LINKER_FLAGS=-Wall
+LINKER_FLAGS=-Wall -Lsfml-bin/ -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 
 # Compilation and linking
@@ -35,7 +35,7 @@ $(PROJECT_NAME):	$(OBJ)
 				$(CC) -o $@ $< $(CC_FLAGS)
 				@ echo ' '
 
-./objects/main.o: ./source/main.cpp $(HPP_SOURCE)
+./objects/main.o: ./source/main.cpp $(H_SOURCE)
 		    @ echo 'Building target using G++ compiler: $<'
 		    $(CC) -o $@ $< $(CC_FLAGS)
 		    @ echo ' '

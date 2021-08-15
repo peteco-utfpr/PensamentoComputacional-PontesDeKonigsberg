@@ -1,9 +1,14 @@
 #include "graphicsManager.h"
 
-GraphicsManager::GraphicsManager(sf::RenderWindow* pWindow){
+GraphicsManager::GraphicsManager(sf::RenderWindow* pWindow): mainView(sf::FloatRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)){
     if(!pWindow)
         printf("WARNING: no window set");
     window = pWindow;
+
+    window->setView(mainView);
+    window->setFramerateLimit(60);
+
+    window->clear();
 
 }
 
@@ -47,5 +52,6 @@ void GraphicsManager::draw(sf::Drawable* drwbl){
 }
 
 void GraphicsManager::render(){
-
+    window->display();
+    window->clear(sf::Color::Black);
 }

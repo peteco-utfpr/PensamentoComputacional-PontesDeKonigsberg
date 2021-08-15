@@ -10,7 +10,6 @@ class EventsManager{
 
     private:
         sf::RenderWindow* window;
-        float canvasWidth, canvasHeight;
         sf::Mouse mouse;
         sf::Event currentEvent;
         std::vector<Clickable*> clickables;

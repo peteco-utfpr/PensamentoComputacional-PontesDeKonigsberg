@@ -3,7 +3,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <string>
-#include <bits/stdc++.h>
 
 
 Character::Character(sf::Texture* texture, sf::Vector2f position, sf::Vector2f scale):sf::Sprite(), Clickable(){
