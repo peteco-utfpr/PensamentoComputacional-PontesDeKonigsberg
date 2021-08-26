@@ -1,8 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "graphicsManager.h"
-#include "eventsManager.h"
+#include <stdio.h>
+#include "level.h"
 
 class Game{
 
@@ -10,6 +10,8 @@ class Game{
         sf::RenderWindow* gameRenderWindow;
         GraphicsManager* gameGraphicsManager;
         EventsManager* gameEventsManager;
+
+        Level* currentLevel;
 
     public:
         Game();

@@ -22,9 +22,9 @@ LINKER_FLAGS=-Wall -Lsfml-bin/ -lsfml-graphics -lsfml-window -lsfml-system -lsfm
 
 
 # Compilation and linking
-all: objFolder $(PROJECT_NAME)
+all: objFolder ./bin/$(PROJECT_NAME)
 
-$(PROJECT_NAME):	$(OBJ)
+./bin/$(PROJECT_NAME):	$(OBJ)
 				@ echo 'Bulding binary using G++ linker: $@'
 				$(CC) -o $@ $^ $(LINKER_FLAGS)
 				@ echo 'Finished buiding binary: $@'
@@ -41,8 +41,8 @@ $(PROJECT_NAME):	$(OBJ)
 		    @ echo ' '
 
 objFolder:
-				@ if not exist "objects" mkdir objects
+			@ if not exist "objects" mkdir objects
 
 clean:
-		    @ $(RM) ./objects/*.o $(PROJECT_NAME) *~
-		    @ rmdir objects
+		    @ rd /S /Q objects
+			@ del .\bin\$(PROJECT_NAME).exe
