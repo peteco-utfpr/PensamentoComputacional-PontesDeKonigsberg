@@ -45,4 +45,4 @@ objFolder:
 
 clean:
 		    @ rd /S /Q objects
-			@ del .\bin\$(PROJECT_NAME).exe
+			@ del .\bin\$(PROJECT_NAME)
