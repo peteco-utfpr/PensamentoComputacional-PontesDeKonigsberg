@@ -19,24 +19,21 @@ Game::~Game(){
 }
 
 void Game::run(){
-    printf("abrindo kk\n");
+
     while(!gameEventsManager->isWindowClosed()){
         update();
         render();
     }
-    printf("fechando kk\n");
+
 }
 
 void Game::update(){
     gameEventsManager->pollAll();
-    printf("update\n");
+    currentLevel->update();
 }
 
 void Game::render(){
 
-    printf("render\n");
     currentLevel->render();
-    printf("level rendered\n");
     gameGraphicsManager->render();
-    printf("game rendered\n");
 }

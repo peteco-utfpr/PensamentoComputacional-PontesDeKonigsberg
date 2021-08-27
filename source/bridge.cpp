@@ -22,8 +22,8 @@ Bridge::~Bridge(){
 
 void Bridge::setBright(bool bright){
     if(bright)
-        setColor(sf::Color::Blue);
-    else if(getColor() == sf::Color::Blue)
+        setColor(sf::Color::Yellow);
+    else if(getColor() == sf::Color::Yellow)
         setColor(sf::Color::White);
 }
 

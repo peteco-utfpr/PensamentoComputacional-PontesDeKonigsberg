@@ -52,7 +52,6 @@ const sf::Vector2f GraphicsManager::getCanvasSize(){
 
 void GraphicsManager::draw(sf::Drawable* drwbl){
     window->draw(*drwbl);
-    printf("deu draw em alguma coisa\n");
 
 }
 
