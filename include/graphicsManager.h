@@ -21,6 +21,7 @@ class GraphicsManager{
 
         sf::Font* loadFont(std::string fontPath);
         sf::Texture* loadTexture(std::string TexturePath);
+        const sf::Vector2f getCanvasSize();
         void draw(sf::Drawable* drwbl);
         void render();
 };

@@ -46,8 +46,13 @@ sf::Texture* GraphicsManager::loadTexture(std::string TexturePath){
 
 }
 
+const sf::Vector2f GraphicsManager::getCanvasSize(){
+    return {CANVAS_WIDTH, CANVAS_HEIGHT};
+}
+
 void GraphicsManager::draw(sf::Drawable* drwbl){
     window->draw(*drwbl);
+    printf("deu draw em alguma coisa\n");
 
 }
 
