@@ -2,6 +2,10 @@
 
 int main(){
 
+    printf("Entrou na main!!!");
+    Game game;
+
+
     return 0;
 }
 
