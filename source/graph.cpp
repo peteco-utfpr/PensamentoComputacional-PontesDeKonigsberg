@@ -10,7 +10,7 @@ Node::~Node(){
 
 }
 
-Graph::Graph(int vertices = 0){
+Graph::Graph(int vertices){
     this->vertices = vertices;
 
     adjList = new Node*[vertices];
