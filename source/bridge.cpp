@@ -4,12 +4,14 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
-Bridge::Bridge(sf::Texture* texture, sf::Vector2f position, sf::Vector2f scale):sf::Sprite(), Clickable(){
+Bridge::Bridge(sf::Texture* texture, sf::Vector2f position, sf::Vector2f scale, float rotation):sf::Sprite(), Clickable(){
+    
     if(!texture)
         printf("WARNING: no texture set!\n");
     else
         setTexture(*texture);
 
+    setRotation(rotation);
     setScale(scale);
     setPosition(position);
     setClickBox(getGlobalBounds());
