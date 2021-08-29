@@ -19,6 +19,7 @@ totalLoadedBridges(IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES)
 
     //setting up bridges---------------
     levelBridges = new Bridge[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES];
+
     
     for(int i = 0; i < totalLoadedBridges; i++)
         levelBridges[i].setTexture(*levelGraphicsManager->loadTexture(BRIDGE_TEXTURE));
@@ -41,14 +42,12 @@ totalLoadedBridges(IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES)
     for(int i = 0; i < totalLoadedBridges; i++)
         levelEventsManager->addClickable(GET_CLICKABLE_POINTER(levelBridges[i]));
     //-------------
-    //printf("Clickables added\n");
 
     //setting up background---------
     background.setPosition(0, 0);
     sf::Vector2f canvasSize = levelGraphicsManager->getCanvasSize();
     sf::FloatRect backgroundRect = background.getGlobalBounds();
     background.scale(canvasSize.x/backgroundRect.width, canvasSize.y/backgroundRect.height);
-    //printf("Background loaded\n");
     //-------------
 
     //Setting up Euler------
@@ -76,27 +75,29 @@ void Level::update(){
         else
             levelBridges[i].setBright(false);
 
+    //checking for movement
     for(int i = 0; i < totalLoadedBridges; i++)
-        if(levelBridges[i].wasClicked()){
+        if(levelBridges[i].wasClicked() && find(crossedBridges.begin(), crossedBridges.end(), &levelBridges[i]) == crossedBridges.end()){
             levelGraph->iterateBySource(eulerPosition);
             Node* it = levelGraph->getNextNode();
             while(it){
-                if(levelBridges[i].getId() == it->linkedBridge->getId())
+                if(levelBridges[i].getId() == it->linkedBridge->getId()){
                     moveEuler(it->dstID);
+                    crossedBridges.push_back(it->linkedBridge);
+                }
 
                 it = levelGraph->getNextNode();
             }
         }
+    for(auto i = crossedBridges.begin(); i != crossedBridges.end(); i++)
+        (*i)->setColor(sf::Color::Red);
 }   
 
 void Level::render(){
-    //printf("rendering level\n");
     levelGraphicsManager->draw(GET_DRAWABLE_POINTER(background));
     levelGraphicsManager->draw(GET_DRAWABLE_POINTER(euler));
     for(int i = 0; i < totalLoadedBridges; i++)
         levelGraphicsManager->draw(GET_DRAWABLE_POINTER(levelBridges[i]));
-
-    //printf("rendered level\n");
 }
 
 void Level::moveEuler(int destination){

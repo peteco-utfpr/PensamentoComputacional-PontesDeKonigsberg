@@ -25,6 +25,8 @@ class Level{
         Graph* levelGraph;
         int eulerPosition;
 
+        std::vector<Bridge*> crossedBridges;
+
     public:
         Level(GraphicsManager* levelGraphicsManager, EventsManager* levelEventsManager);
         ~Level();
