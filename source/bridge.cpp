@@ -16,6 +16,7 @@ Bridge::Bridge(sf::Texture* texture, sf::Vector2f position, sf::Vector2f scale, 
     setPosition(position);
     this->id = id;
     setClickBox(getGlobalBounds());
+    crossed = false;
     
 }
 
@@ -36,6 +37,14 @@ void Bridge::setBright(bool bright){
         setColor(sf::Color::Yellow);
     else if(getColor() == sf::Color::Yellow)
         setColor(sf::Color::White);
+}
+
+void Bridge::setCrossed(bool crossed){
+    this->crossed = crossed;
+}
+
+bool Bridge::isCrossed(){
+    return crossed;
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------

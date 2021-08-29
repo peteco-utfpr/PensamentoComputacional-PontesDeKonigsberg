@@ -1,11 +1,12 @@
 #ifndef LEVEL_H
 #define LEVEL_H
 
+
 #include "graphicsManager.h"
 #include "eventsManager.h"
 #include "bridge.h"
 #include "graph.h"
-
+#include "textButton.h"
 
 #include "levelData.h"
 
@@ -27,6 +28,9 @@ class Level{
 
         std::vector<Bridge*> crossedBridges;
 
+        TextButton retryButton;
+        bool stuck;
+
     public:
         Level(GraphicsManager* levelGraphicsManager, EventsManager* levelEventsManager);
         ~Level();
@@ -35,6 +39,7 @@ class Level{
         void render();
 
         void moveEuler(int destination);
+        void reset();
 
 
 };

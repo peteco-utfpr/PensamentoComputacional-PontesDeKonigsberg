@@ -14,6 +14,7 @@ enum Island{
 #define BACKGROUND_TEXTURE "./assets/fundo.png"
 #define EULER_TEXTURE "./assets/euler.png"
 #define BRIDGE_TEXTURE "./assets/ponte.png"
+#define BUTTON_FONT_PATH "./assets/anirm__.ttf"
 
 
 // IMPOSSIBLE LEVEL DATA ---------------------------------------------------------------

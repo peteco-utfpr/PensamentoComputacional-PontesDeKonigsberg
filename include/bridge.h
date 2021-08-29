@@ -14,6 +14,7 @@ class Bridge : public sf::Sprite, public Clickable{
         int id;
         sf::Texture *texture;
         float rotation; //angle
+        bool crossed;
 
     public:
         Bridge(sf::Texture* texture = NULL, sf::Vector2f position = {0.0f, 0.0f}, sf::Vector2f scale = {1.0f, 1.0f}, float rotation = 0.0f, int id = -1); //Construtor básico da classe;
@@ -21,6 +22,8 @@ class Bridge : public sf::Sprite, public Clickable{
         void setId(int id);
         int getId();
         void setBright(bool bright);
+        void setCrossed(bool crossed);
+        bool isCrossed();
 };
 
 #endif /* BRIDGE_H */

@@ -3,8 +3,12 @@
 Level::Level(GraphicsManager* levelGraphicsManager, EventsManager* levelEventsManager):
 background(*levelGraphicsManager->loadTexture(BACKGROUND_TEXTURE)),
 euler(*levelGraphicsManager->loadTexture(EULER_TEXTURE)),
-totalLoadedBridges(IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES)
+totalLoadedBridges(IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES),
+retryButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "tentar novamente", 50, sf::Color::Yellow)
 {
+    printf("building level\n");
+
+    levelEventsManager->addClickable(GET_CLICKABLE_POINTER(retryButton));
     eulerPosition = Island::east;
 
     sf::Vector2f levelBridgesPositions[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = IMPOSSIBLE_LEVEL_BRIDGE_POSITION_VECTOR;
@@ -59,13 +63,15 @@ totalLoadedBridges(IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES)
 
     for(int i = 0; i < totalLoadedBridges; i++)
         levelGraph->addEdge(levelBridgesSources[i], levelBridgesDestinations[i], false, &levelBridges[i]);
-
+    printf("built level\n");
 }
 
 Level::~Level(){
     for(int i = 0; i < totalLoadedBridges; i++)
         levelEventsManager->removeClickable(GET_CLICKABLE_POINTER(levelBridges[i]));
     delete[] levelBridges;
+
+    delete levelGraph;
 }
 
 void Level::update(){
@@ -77,20 +83,46 @@ void Level::update(){
 
     //checking for movement
     for(int i = 0; i < totalLoadedBridges; i++)
-        if(levelBridges[i].wasClicked() && find(crossedBridges.begin(), crossedBridges.end(), &levelBridges[i]) == crossedBridges.end()){
+        if(levelBridges[i].wasClicked() && !levelBridges[i].isCrossed()){
             levelGraph->iterateBySource(eulerPosition);
             Node* it = levelGraph->getNextNode();
             while(it){
                 if(levelBridges[i].getId() == it->linkedBridge->getId()){
                     moveEuler(it->dstID);
+                    levelBridges[i].setCrossed(true);
                     crossedBridges.push_back(it->linkedBridge);
                 }
 
                 it = levelGraph->getNextNode();
             }
         }
+
     for(auto i = crossedBridges.begin(); i != crossedBridges.end(); i++)
         (*i)->setColor(sf::Color::Red);
+
+    //checking if player is stuck
+    stuck = true;
+    levelGraph->iterateBySource(eulerPosition);
+    Node* it = levelGraph->getNextNode();
+    while(it){
+        if(!it->linkedBridge->isCrossed()){
+            stuck = false;
+            break;
+        }
+        it = levelGraph->getNextNode();
+    }
+
+    if(retryButton.isHovering()){
+        retryButton.setFillColor(sf::Color::Blue);
+        if(stuck && retryButton.wasClicked())
+        reset();
+    }
+    else
+        retryButton.setFillColor(sf::Color::Yellow);
+
+    
+
+
 }   
 
 void Level::render(){
@@ -98,6 +130,9 @@ void Level::render(){
     levelGraphicsManager->draw(GET_DRAWABLE_POINTER(euler));
     for(int i = 0; i < totalLoadedBridges; i++)
         levelGraphicsManager->draw(GET_DRAWABLE_POINTER(levelBridges[i]));
+
+    if(stuck)
+        levelGraphicsManager->draw(GET_DRAWABLE_POINTER(retryButton));
 }
 
 void Level::moveEuler(int destination){
@@ -122,6 +157,14 @@ void Level::moveEuler(int destination){
             euler.setPosition(ISLAND_CENTER_POSITION);
         break;
     }
+}
 
+void Level::reset(){
+    crossedBridges.clear();
+    for(int i = 0; i < totalLoadedBridges; i++){
+        levelBridges[i].setCrossed(false);
+        levelBridges[i].setColor(sf::Color::White);
+    }
 
+    moveEuler(Island::east);
 }
