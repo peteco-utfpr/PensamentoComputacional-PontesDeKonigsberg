@@ -4,6 +4,7 @@
 #include "graphicsManager.h"
 #include "eventsManager.h"
 #include "bridge.h"
+#include "graph.h"
 
 
 #include "levelData.h"
@@ -21,6 +22,8 @@ class Level{
 
         Bridge* levelBridges;
         const int totalLoadedBridges;
+        Graph* levelGraph;
+        int eulerPosition;
 
     public:
         Level(GraphicsManager* levelGraphicsManager, EventsManager* levelEventsManager);
@@ -28,6 +31,8 @@ class Level{
 
         void update();   
         void render();
+
+        void moveEuler(int destination);
 
 
 };

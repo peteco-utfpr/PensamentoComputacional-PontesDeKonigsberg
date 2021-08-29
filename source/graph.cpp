@@ -1,9 +1,9 @@
 #include "graph.h"
-
-Node::Node(int id, Node* next, Bridge* linkedBridge){
-    this->id = id;
-    this->next = nullptr;
-    this->linkedBridge = nullptr;
+#include <stdio.h>
+Node::Node(int dstID, Node* next, Bridge* linkedBridge){
+    this->dstID = dstID;
+    this->next = next;
+    this->linkedBridge = linkedBridge;
 }
 
 Node::~Node(){
@@ -42,4 +42,18 @@ void Graph::addEdge(int srcID, int dstID, bool directed, Bridge* linkedBridge){
         Node* newNode = new Node(srcID, adjList[dstID], linkedBridge);
         adjList[dstID] = newNode;
     }
+}
+
+void Graph::iterateBySource(int srcID){
+    it = adjList[srcID];
+}
+
+Node* Graph::getNextNode(){
+    Node* value = nullptr;
+
+    if(it){
+        value = it;
+        it = it->next;
+    }
+    return value;
 }
