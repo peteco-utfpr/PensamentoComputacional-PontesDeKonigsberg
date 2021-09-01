@@ -25,26 +25,16 @@ retryButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "tentar novamente"
     levelBridges = new Bridge[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES];
 
     
-    for(int i = 0; i < totalLoadedBridges; i++)
+    for(int i = 0; i < totalLoadedBridges; i++){
         levelBridges[i].setTexture(*levelGraphicsManager->loadTexture(BRIDGE_TEXTURE));
-
-    for(int i = 0; i < totalLoadedBridges; i++)
         levelBridges[i].setPosition(levelBridgesPositions[i]);
-
-    for(int i = 0; i < totalLoadedBridges; i++)
         levelBridges[i].setScale(levelBridgesScales[i]);
-
-    for(int i = 0; i < totalLoadedBridges; i++)
         levelBridges[i].setRotation(levelBridgesRotations[i]);
-
-    for(int i = 0; i < totalLoadedBridges; i++)
         levelBridges[i].setId(i);
-
-    for(int i = 0; i < totalLoadedBridges; i++)
         levelBridges[i].setClickBox(levelBridges[i].getGlobalBounds());
-
-    for(int i = 0; i < totalLoadedBridges; i++)
         levelEventsManager->addClickable(GET_CLICKABLE_POINTER(levelBridges[i]));
+    }
+    
     //-------------
 
     //setting up background---------
