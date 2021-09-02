@@ -7,6 +7,7 @@
 #include "bridge.h"
 #include "graph.h"
 #include "textButton.h"
+#include <SFML/Audio.hpp>
 
 #include "levelData.h"
 
@@ -20,16 +21,23 @@ class Level{
 
         sf::Sprite background;
         sf::Sprite euler;
+        sf::Sprite whiteFlag;
 
         Bridge* levelBridges;
         const int totalLoadedBridges;
         Graph* levelGraph;
         int eulerPosition;
+        int tries;
+
+        sf::Sound crossingSound;
+        sf::SoundBuffer stepSoundBuffer;
 
         std::vector<Bridge*> crossedBridges;
 
         TextButton retryButton;
         bool stuck;
+
+        TextButton giveUpButton;
 
     public:
         Level(GraphicsManager* levelGraphicsManager, EventsManager* levelEventsManager);

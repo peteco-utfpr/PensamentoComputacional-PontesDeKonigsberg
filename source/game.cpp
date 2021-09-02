@@ -20,6 +20,13 @@ Game::~Game(){
 
 void Game::run(){
 
+    sf::Music music;
+    if(!music.openFromFile(MUSIC_PATH)){
+        printf("ERROR: could not load music\n");
+    }
+
+    music.play();
+
     while(!gameEventsManager->isWindowClosed()){
         update();
         render();

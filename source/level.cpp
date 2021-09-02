@@ -3,13 +3,15 @@
 Level::Level(GraphicsManager* levelGraphicsManager, EventsManager* levelEventsManager):
 background(*levelGraphicsManager->loadTexture(BACKGROUND_TEXTURE)),
 euler(*levelGraphicsManager->loadTexture(EULER_TEXTURE)),
+whiteFlag(*levelGraphicsManager->loadTexture(WHITE_FLAG_TEXTURE)),
 totalLoadedBridges(IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES),
-retryButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "tentar novamente", 50, sf::Color::Yellow)
+retryButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "tentar novamente", 50, sf::Color::Yellow),
+giveUpButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Desistir", 50, sf::Color::Yellow, GIVE_UP_BUTTON_POSITION)
 {
     printf("building level\n");
 
     levelEventsManager->addClickable(GET_CLICKABLE_POINTER(retryButton));
-    eulerPosition = Island::east;
+    levelEventsManager->addClickable(GET_CLICKABLE_POINTER(giveUpButton));
 
     sf::Vector2f levelBridgesPositions[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = IMPOSSIBLE_LEVEL_BRIDGE_POSITION_VECTOR;
     sf::Vector2f levelBridgesScales[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES]= IMPOSSIBLE_LEVEL_BRIDGE_SCALE_VECTOR;
@@ -24,7 +26,8 @@ retryButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "tentar novamente"
     //setting up bridges---------------
     levelBridges = new Bridge[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES];
 
-    
+    levelGraph = new Graph(4);
+
     for(int i = 0; i < totalLoadedBridges; i++){
         levelBridges[i].setTexture(*levelGraphicsManager->loadTexture(BRIDGE_TEXTURE));
         levelBridges[i].setPosition(levelBridgesPositions[i]);
@@ -32,7 +35,10 @@ retryButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "tentar novamente"
         levelBridges[i].setRotation(levelBridgesRotations[i]);
         levelBridges[i].setId(i);
         levelBridges[i].setClickBox(levelBridges[i].getGlobalBounds());
+
         levelEventsManager->addClickable(GET_CLICKABLE_POINTER(levelBridges[i]));
+
+        levelGraph->addEdge(levelBridgesSources[i], levelBridgesDestinations[i], false, &levelBridges[i]);
     }
     
     //-------------
@@ -45,15 +51,19 @@ retryButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "tentar novamente"
     //-------------
 
     //Setting up Euler------
+    eulerPosition = Island::east;
     euler.setPosition({1600,540});
     euler.setScale({0.2, 0.2});
     //-------------
 
-    levelGraph = new Graph(4);
+    whiteFlag.setPosition(WHITE_FLAG_POSITION);
+    whiteFlag.setScale(WHITE_FLAG_SCALE);
 
-    for(int i = 0; i < totalLoadedBridges; i++)
-        levelGraph->addEdge(levelBridgesSources[i], levelBridgesDestinations[i], false, &levelBridges[i]);
-    printf("built level\n");
+    tries = 0;
+
+    stepSoundBuffer.loadFromFile(CROSSING_SOUND_PATH);
+    crossingSound.setBuffer(stepSoundBuffer);
+
 }
 
 Level::~Level(){
@@ -105,10 +115,18 @@ void Level::update(){
     if(retryButton.isHovering()){
         retryButton.setFillColor(sf::Color::Blue);
         if(stuck && retryButton.wasClicked())
-        reset();
+            reset();
     }
     else
         retryButton.setFillColor(sf::Color::Yellow);
+
+    if(giveUpButton.isHovering()){
+        giveUpButton.setFillColor(sf::Color::Blue);
+        if(stuck && tries > 10 && giveUpButton.wasClicked())
+            reset();//quit?
+    }
+    else
+        giveUpButton.setFillColor(sf::Color::Yellow);
 
     
 
@@ -118,14 +136,21 @@ void Level::update(){
 void Level::render(){
     levelGraphicsManager->draw(GET_DRAWABLE_POINTER(background));
     levelGraphicsManager->draw(GET_DRAWABLE_POINTER(euler));
+
     for(int i = 0; i < totalLoadedBridges; i++)
         levelGraphicsManager->draw(GET_DRAWABLE_POINTER(levelBridges[i]));
 
     if(stuck)
         levelGraphicsManager->draw(GET_DRAWABLE_POINTER(retryButton));
+
+    if(stuck && tries > 10){
+        levelGraphicsManager->draw(GET_DRAWABLE_POINTER(whiteFlag));
+        levelGraphicsManager->draw(GET_DRAWABLE_POINTER(giveUpButton));
+    }
 }
 
 void Level::moveEuler(int destination){
+    crossingSound.play();
     switch (destination){
         case Island::north:
             eulerPosition = Island::north;
@@ -151,6 +176,7 @@ void Level::moveEuler(int destination){
 
 void Level::reset(){
     crossedBridges.clear();
+    tries++;
     for(int i = 0; i < totalLoadedBridges; i++){
         levelBridges[i].setCrossed(false);
         levelBridges[i].setColor(sf::Color::White);

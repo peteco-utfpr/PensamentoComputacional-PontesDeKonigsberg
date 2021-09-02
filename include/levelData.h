@@ -14,7 +14,13 @@ enum Island{
 #define BACKGROUND_TEXTURE "./assets/fundo.png"
 #define EULER_TEXTURE "./assets/euler.png"
 #define BRIDGE_TEXTURE "./assets/ponte.png"
+#define WHITE_FLAG_TEXTURE "./assets/flag.png"
 #define BUTTON_FONT_PATH "./assets/anirm__.ttf"
+#define CROSSING_SOUND_PATH "./assets/steps.ogg"
+
+#define GIVE_UP_BUTTON_POSITION {100, 900}
+#define WHITE_FLAG_POSITION     {10, 900}
+#define WHITE_FLAG_SCALE        {0.1, 0.1}
 
 
 // IMPOSSIBLE LEVEL DATA ---------------------------------------------------------------

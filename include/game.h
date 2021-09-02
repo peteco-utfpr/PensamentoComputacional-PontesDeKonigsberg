@@ -3,6 +3,9 @@
 
 #include <stdio.h>
 #include "level.h"
+#include <SFML/Audio.hpp>
+
+#define MUSIC_PATH "assets/music.ogg"
 
 class Game{
 
