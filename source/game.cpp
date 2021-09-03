@@ -1,20 +1,28 @@
 #include "game.h"
-
+#include "state.h"
 
 Game::Game(){
     gameRenderWindow = new sf::RenderWindow(sf::VideoMode(1200,600), "Pontes de Konigsberg", sf::Style::Default);
 
     gameGraphicsManager = new GraphicsManager(gameRenderWindow);
     gameEventsManager = new EventsManager(gameRenderWindow);
-    currentLevel = new Level(gameGraphicsManager, gameEventsManager);
+
+    gameStateMachine = new StateMachine();
+    gameIntroState = new IntroState(gameStateMachine, gameGraphicsManager, gameEventsManager);
+    gamePlayState = new PlayState(gameStateMachine, gameGraphicsManager, gameEventsManager);
+    gameMenuState = new MenuState(gameStateMachine, gameGraphicsManager, gameEventsManager);
+    gameStateMachine->addState(GET_STATE_POINTER(*gameIntroState));
+    gameStateMachine->addState(GET_STATE_POINTER(*gameMenuState));
+    gameStateMachine->addState(GET_STATE_POINTER(*gamePlayState));
+    gameStateMachine->changeState(0, nullptr);
+    
 }
 
 Game::~Game(){
-
+    delete gameStateMachine;
     delete gameEventsManager;
     delete gameGraphicsManager;
     delete gameRenderWindow;
-    delete currentLevel;
 
 }
 
@@ -35,12 +43,12 @@ void Game::run(){
 }
 
 void Game::update(){
+    //verificar qual estado está???
     gameEventsManager->pollAll();
-    currentLevel->update();
+    gameStateMachine->update(); 
 }
 
 void Game::render(){
-
-    currentLevel->render();
+    gameStateMachine->render();
     gameGraphicsManager->render();
 }

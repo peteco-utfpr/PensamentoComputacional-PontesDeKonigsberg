@@ -43,7 +43,7 @@ class Level{
         Level(GraphicsManager* levelGraphicsManager, EventsManager* levelEventsManager);
         ~Level();
 
-        void update();   
+        bool update();   
         void render();
 
         void moveEuler(int destination);

@@ -67,6 +67,9 @@ giveUpButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Desistir", 50, s
 }
 
 Level::~Level(){
+    levelEventsManager->removeClickable(GET_CLICKABLE_POINTER(retryButton));
+    levelEventsManager->removeClickable(GET_CLICKABLE_POINTER(giveUpButton));
+
     for(int i = 0; i < totalLoadedBridges; i++)
         levelEventsManager->removeClickable(GET_CLICKABLE_POINTER(levelBridges[i]));
     delete[] levelBridges;
@@ -74,12 +77,14 @@ Level::~Level(){
     delete levelGraph;
 }
 
-void Level::update(){
+bool Level::update(){
     for(int i = 0; i < totalLoadedBridges; i++)
         if(levelBridges[i].isHovering())
             levelBridges[i].setBright(true);
         else
             levelBridges[i].setBright(false);
+    
+    printf("bridges hover iterated\n");
 
     //checking for movement
     for(int i = 0; i < totalLoadedBridges; i++)
@@ -96,6 +101,7 @@ void Level::update(){
                 it = levelGraph->getNextNode();
             }
         }
+    printf("move iterated\n");
 
     for(auto i = crossedBridges.begin(); i != crossedBridges.end(); i++)
         (*i)->setColor(sf::Color::Red);
@@ -111,6 +117,7 @@ void Level::update(){
         }
         it = levelGraph->getNextNode();
     }
+    printf("stuck checked\n");
 
     if(retryButton.isHovering()){
         retryButton.setFillColor(sf::Color::Blue);
@@ -123,13 +130,13 @@ void Level::update(){
     if(giveUpButton.isHovering()){
         giveUpButton.setFillColor(sf::Color::Blue);
         if(stuck && tries > 10 && giveUpButton.wasClicked())
-            reset();//quit?
+            return true;//quit
     }
     else
         giveUpButton.setFillColor(sf::Color::Yellow);
 
-    
-
+    printf("all done\n");
+    return false;
 
 }   
 

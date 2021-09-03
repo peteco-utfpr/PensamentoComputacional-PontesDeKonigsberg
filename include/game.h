@@ -4,6 +4,18 @@
 #include <stdio.h>
 #include "level.h"
 #include <SFML/Audio.hpp>
+#include "state.h"
+
+typedef enum{
+    introStateID,
+    menuStateID,
+    playStateID,
+    numberOfStates
+}GameState;
+
+#include "introState.h"
+#include "playState.h"
+#include "menuState.h"
 
 #define MUSIC_PATH "assets/music.ogg"
 
@@ -13,8 +25,10 @@ class Game{
         sf::RenderWindow* gameRenderWindow;
         GraphicsManager* gameGraphicsManager;
         EventsManager* gameEventsManager;
-
-        Level* currentLevel;
+        StateMachine* gameStateMachine;
+        IntroState* gameIntroState;
+        PlayState* gamePlayState;
+        MenuState* gameMenuState;
 
     public:
         Game();
