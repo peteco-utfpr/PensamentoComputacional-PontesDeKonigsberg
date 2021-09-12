@@ -7,17 +7,20 @@
 #define MENU_FONT_PATH "./assets/anirm__.ttf"
 
 #define TITLE_SIZE            70
-#define PLAY_BUTTON_SIZE      50
+#define PLAY1_BUTTON_SIZE      50
+#define PLAY2_BUTTON_SIZE      50
 #define EXIT_BUTTON_SIZE      50
 #define TITLE_POSITION        {405.0f, 200.0f}
-#define PLAY_BUTTON_POSITION  {860.0f, 500.0f}
-#define EXIT_BUTTON_POSITION  {860.0f, 650.0f}
+#define PLAY1_BUTTON_POSITION  {860.0f, 500.0f}
+#define PLAY2_BUTTON_POSITION  {860.0f, 650.0f}
+#define EXIT_BUTTON_POSITION  {860.0f, 800.0f}
 
 class MenuState: public State{
 private:
      sf::Sprite background;
      sf::Text title;     
-     TextButton playButton;
+     TextButton play1Button;
+     TextButton play2Button;
      TextButton exitButton;
 
 public:

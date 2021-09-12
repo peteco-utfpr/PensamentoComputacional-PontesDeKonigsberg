@@ -24,7 +24,7 @@ class Level{
         sf::Sprite whiteFlag;
 
         Bridge* levelBridges;
-        const int totalLoadedBridges;
+        int totalLoadedBridges;
         Graph* levelGraph;
         int eulerPosition;
         int tries;
@@ -40,7 +40,7 @@ class Level{
         TextButton giveUpButton;
 
     public:
-        Level(GraphicsManager* levelGraphicsManager, EventsManager* levelEventsManager);
+        Level(GraphicsManager* levelGraphicsManager = NULL, EventsManager* levelEventsManager = NULL, bool possible = false);
         ~Level();
 
         bool update();   

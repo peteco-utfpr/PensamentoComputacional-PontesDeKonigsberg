@@ -1,44 +1,65 @@
 #include "level.h"
 
-Level::Level(GraphicsManager* levelGraphicsManager, EventsManager* levelEventsManager):
+Level::Level(GraphicsManager* levelGraphicsManager, EventsManager* levelEventsManager, bool possible):
 background(*levelGraphicsManager->loadTexture(BACKGROUND_TEXTURE)),
 euler(*levelGraphicsManager->loadTexture(EULER_TEXTURE)),
 whiteFlag(*levelGraphicsManager->loadTexture(WHITE_FLAG_TEXTURE)),
-totalLoadedBridges(IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES),
+totalLoadedBridges(possible ? POSSIBLE_LEVEL_NUMBER_OF_BRIDGES : IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES),
 retryButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "tentar novamente", 50, sf::Color::Yellow),
 giveUpButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Desistir", 50, sf::Color::Yellow, GIVE_UP_BUTTON_POSITION)
 {
     printf("building level\n");
 
-    levelEventsManager->addClickable(GET_CLICKABLE_POINTER(retryButton));
-    levelEventsManager->addClickable(GET_CLICKABLE_POINTER(giveUpButton));
-
-    sf::Vector2f levelBridgesPositions[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = IMPOSSIBLE_LEVEL_BRIDGE_POSITION_VECTOR;
-    sf::Vector2f levelBridgesScales[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES]= IMPOSSIBLE_LEVEL_BRIDGE_SCALE_VECTOR;
-    float levelBridgesRotations[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES]= IMPOSSIBLE_LEVEL_BRIDGE_ROTATION_VECTOR;
-    Island levelBridgesSources[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES]= IMPOSSIBLE_LEVEL_BRIDGE_SOURCE_VECTOR;
-    Island levelBridgesDestinations[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES]= IMPOSSIBLE_LEVEL_BRIDGE_DEST_VECTOR;
-
-
     this->levelGraphicsManager = levelGraphicsManager;
     this->levelEventsManager = levelEventsManager;
 
+    levelEventsManager->addClickable(GET_CLICKABLE_POINTER(retryButton));
+    levelEventsManager->addClickable(GET_CLICKABLE_POINTER(giveUpButton));
+
     //setting up bridges---------------
-    levelBridges = new Bridge[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES];
+    levelBridges = new Bridge[possible ? POSSIBLE_LEVEL_NUMBER_OF_BRIDGES : IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES];
 
     levelGraph = new Graph(4);
 
-    for(int i = 0; i < totalLoadedBridges; i++){
-        levelBridges[i].setTexture(*levelGraphicsManager->loadTexture(BRIDGE_TEXTURE));
-        levelBridges[i].setPosition(levelBridgesPositions[i]);
-        levelBridges[i].setScale(levelBridgesScales[i]);
-        levelBridges[i].setRotation(levelBridgesRotations[i]);
-        levelBridges[i].setId(i);
-        levelBridges[i].setClickBox(levelBridges[i].getGlobalBounds());
+    if(possible){
+        sf::Vector2f levelBridgesPositions[POSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = POSSIBLE_LEVEL_BRIDGE_POSITION_VECTOR;
+        sf::Vector2f levelBridgesScales[POSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = POSSIBLE_LEVEL_BRIDGE_SCALE_VECTOR;
+        float levelBridgesRotations[POSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = POSSIBLE_LEVEL_BRIDGE_ROTATION_VECTOR;
+        Island levelBridgesSources[POSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = POSSIBLE_LEVEL_BRIDGE_SOURCE_VECTOR;
+        Island levelBridgesDestinations[POSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = POSSIBLE_LEVEL_BRIDGE_DEST_VECTOR;
 
-        levelEventsManager->addClickable(GET_CLICKABLE_POINTER(levelBridges[i]));
+        for(int i = 0; i < totalLoadedBridges; i++){
+            levelBridges[i].setTexture(*levelGraphicsManager->loadTexture(BRIDGE_TEXTURE));
+            levelBridges[i].setPosition(levelBridgesPositions[i]);
+            levelBridges[i].setScale(levelBridgesScales[i]);
+            levelBridges[i].setRotation(levelBridgesRotations[i]);
+            levelBridges[i].setId(i);
+            levelBridges[i].setClickBox(levelBridges[i].getGlobalBounds());
 
-        levelGraph->addEdge(levelBridgesSources[i], levelBridgesDestinations[i], false, &levelBridges[i]);
+            levelEventsManager->addClickable(GET_CLICKABLE_POINTER(levelBridges[i]));
+
+            levelGraph->addEdge(levelBridgesSources[i], levelBridgesDestinations[i], false, &levelBridges[i]);
+        }
+    }
+    else{
+        sf::Vector2f levelBridgesPositions[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = IMPOSSIBLE_LEVEL_BRIDGE_POSITION_VECTOR;
+        sf::Vector2f levelBridgesScales[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = IMPOSSIBLE_LEVEL_BRIDGE_SCALE_VECTOR;
+        float levelBridgesRotations[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = IMPOSSIBLE_LEVEL_BRIDGE_ROTATION_VECTOR;
+        Island levelBridgesSources[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES] = IMPOSSIBLE_LEVEL_BRIDGE_SOURCE_VECTOR;
+        Island levelBridgesDestinations[IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES] =IMPOSSIBLE_LEVEL_BRIDGE_DEST_VECTOR;
+
+        for(int i = 0; i < totalLoadedBridges; i++){
+            levelBridges[i].setTexture(*levelGraphicsManager->loadTexture(BRIDGE_TEXTURE));
+            levelBridges[i].setPosition(levelBridgesPositions[i]);
+            levelBridges[i].setScale(levelBridgesScales[i]);
+            levelBridges[i].setRotation(levelBridgesRotations[i]);
+            levelBridges[i].setId(i);
+            levelBridges[i].setClickBox(levelBridges[i].getGlobalBounds());
+
+            levelEventsManager->addClickable(GET_CLICKABLE_POINTER(levelBridges[i]));
+
+            levelGraph->addEdge(levelBridgesSources[i], levelBridgesDestinations[i], false, &levelBridges[i]);
+        }
     }
     
     //-------------
@@ -51,8 +72,8 @@ giveUpButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Desistir", 50, s
     //-------------
 
     //Setting up Euler------
-    eulerPosition = Island::east;
-    euler.setPosition({1600,540});
+    eulerPosition = Island::north;
+    euler.setPosition(ISLAND_NORTH_POSITION);
     euler.setScale({0.2, 0.2});
     //-------------
 
@@ -189,5 +210,5 @@ void Level::reset(){
         levelBridges[i].setColor(sf::Color::White);
     }
 
-    moveEuler(Island::east);
+    moveEuler(Island::north);
 }

@@ -78,7 +78,7 @@ enum Island{
                                 IMPOSSIBLE_LEVEL_BRIDGE4_POSITION, \
                                 IMPOSSIBLE_LEVEL_BRIDGE5_POSITION, \
                                 IMPOSSIBLE_LEVEL_BRIDGE6_POSITION, \
-                                IMPOSSIBLE_LEVEL_BRIDGE7_POSITION, \
+                                IMPOSSIBLE_LEVEL_BRIDGE7_POSITION \
                                }
 
 #define IMPOSSIBLE_LEVEL_BRIDGE_SCALE_VECTOR {               \
@@ -88,7 +88,7 @@ enum Island{
                              IMPOSSIBLE_LEVEL_BRIDGE4_SCALE, \
                              IMPOSSIBLE_LEVEL_BRIDGE5_SCALE, \
                              IMPOSSIBLE_LEVEL_BRIDGE6_SCALE, \
-                             IMPOSSIBLE_LEVEL_BRIDGE7_SCALE, \
+                             IMPOSSIBLE_LEVEL_BRIDGE7_SCALE \
                             }
 
 #define IMPOSSIBLE_LEVEL_BRIDGE_ROTATION_VECTOR {                  \
@@ -98,7 +98,7 @@ enum Island{
                                 IMPOSSIBLE_LEVEL_BRIDGE4_ROTATION, \
                                 IMPOSSIBLE_LEVEL_BRIDGE5_ROTATION, \
                                 IMPOSSIBLE_LEVEL_BRIDGE6_ROTATION, \
-                                IMPOSSIBLE_LEVEL_BRIDGE7_ROTATION, \
+                                IMPOSSIBLE_LEVEL_BRIDGE7_ROTATION \
                                }
 
 #define IMPOSSIBLE_LEVEL_BRIDGE_SOURCE_VECTOR {                  \
@@ -108,7 +108,7 @@ enum Island{
                                 IMPOSSIBLE_LEVEL_BRIDGE4_SOURCE, \
                                 IMPOSSIBLE_LEVEL_BRIDGE5_SOURCE, \
                                 IMPOSSIBLE_LEVEL_BRIDGE6_SOURCE, \
-                                IMPOSSIBLE_LEVEL_BRIDGE7_SOURCE, \
+                                IMPOSSIBLE_LEVEL_BRIDGE7_SOURCE \
                                }
 
 #define IMPOSSIBLE_LEVEL_BRIDGE_DEST_VECTOR {                  \
@@ -118,11 +118,100 @@ enum Island{
                                 IMPOSSIBLE_LEVEL_BRIDGE4_DEST, \
                                 IMPOSSIBLE_LEVEL_BRIDGE5_DEST, \
                                 IMPOSSIBLE_LEVEL_BRIDGE6_DEST, \
-                                IMPOSSIBLE_LEVEL_BRIDGE7_DEST, \
+                                IMPOSSIBLE_LEVEL_BRIDGE7_DEST \
                                }
 
 //----------------------------------------------------------------------------------------------
 
 
 //POSSIBLE LEVEL
-    //TODO
+
+//bridge data, all the parameters of every bridge in the level
+#define POSSIBLE_LEVEL_NUMBER_OF_BRIDGES   6
+
+#define POSSIBLE_LEVEL_BRIDGE2_POSITION    {1250.0, 900.0}
+#define POSSIBLE_LEVEL_BRIDGE2_SCALE       {7.0,7.0}
+#define POSSIBLE_LEVEL_BRIDGE2_ROTATION    -10
+#define POSSIBLE_LEVEL_BRIDGE2_SOURCE      Island::east
+#define POSSIBLE_LEVEL_BRIDGE2_DEST        Island::south
+
+#define POSSIBLE_LEVEL_BRIDGE3_POSITION    {1000.0, 660.0}
+#define POSSIBLE_LEVEL_BRIDGE3_SCALE       {7.0,7.0}
+#define POSSIBLE_LEVEL_BRIDGE3_ROTATION    90
+#define POSSIBLE_LEVEL_BRIDGE3_SOURCE      Island::south
+#define POSSIBLE_LEVEL_BRIDGE3_DEST        Island::center
+
+#define POSSIBLE_LEVEL_BRIDGE4_POSITION    {710.0, 610.0}
+#define POSSIBLE_LEVEL_BRIDGE4_SCALE       {7.0,7.0}
+#define POSSIBLE_LEVEL_BRIDGE4_ROTATION    98
+#define POSSIBLE_LEVEL_BRIDGE4_SOURCE      Island::south
+#define POSSIBLE_LEVEL_BRIDGE4_DEST        Island::center
+
+#define POSSIBLE_LEVEL_BRIDGE5_POSITION    {820.0, 260.0}
+#define POSSIBLE_LEVEL_BRIDGE5_SCALE       {7.0,7.0}
+#define POSSIBLE_LEVEL_BRIDGE5_ROTATION    285
+#define POSSIBLE_LEVEL_BRIDGE5_SOURCE      Island::north
+#define POSSIBLE_LEVEL_BRIDGE5_DEST        Island::center
+
+#define POSSIBLE_LEVEL_BRIDGE6_POSITION    {1070.0, 300.0}
+#define POSSIBLE_LEVEL_BRIDGE6_SCALE       {7.0,7.0}
+#define POSSIBLE_LEVEL_BRIDGE6_ROTATION    285
+#define POSSIBLE_LEVEL_BRIDGE6_SOURCE      Island::north
+#define POSSIBLE_LEVEL_BRIDGE6_DEST        Island::center
+
+#define POSSIBLE_LEVEL_BRIDGE7_POSITION    {1550.0, 130.0}
+#define POSSIBLE_LEVEL_BRIDGE7_SCALE       {7.0,7.0}
+#define POSSIBLE_LEVEL_BRIDGE7_ROTATION    85
+#define POSSIBLE_LEVEL_BRIDGE7_SOURCE      Island::east
+#define POSSIBLE_LEVEL_BRIDGE7_DEST        Island::north
+
+//vectors over which we'll iterate when loading the level
+#define POSSIBLE_LEVEL_BRIDGE_POSITION_VECTOR {                  \
+                                \
+                                POSSIBLE_LEVEL_BRIDGE2_POSITION, \
+                                POSSIBLE_LEVEL_BRIDGE3_POSITION, \
+                                POSSIBLE_LEVEL_BRIDGE4_POSITION, \
+                                POSSIBLE_LEVEL_BRIDGE5_POSITION, \
+                                POSSIBLE_LEVEL_BRIDGE6_POSITION, \
+                                POSSIBLE_LEVEL_BRIDGE7_POSITION \
+                               }
+
+#define POSSIBLE_LEVEL_BRIDGE_SCALE_VECTOR {               \
+                            \
+                             POSSIBLE_LEVEL_BRIDGE2_SCALE, \
+                             POSSIBLE_LEVEL_BRIDGE3_SCALE, \
+                             POSSIBLE_LEVEL_BRIDGE4_SCALE, \
+                             POSSIBLE_LEVEL_BRIDGE5_SCALE, \
+                             POSSIBLE_LEVEL_BRIDGE6_SCALE, \
+                             POSSIBLE_LEVEL_BRIDGE7_SCALE \
+                            }
+
+#define POSSIBLE_LEVEL_BRIDGE_ROTATION_VECTOR {                  \
+                                \
+                                POSSIBLE_LEVEL_BRIDGE2_ROTATION, \
+                                POSSIBLE_LEVEL_BRIDGE3_ROTATION, \
+                                POSSIBLE_LEVEL_BRIDGE4_ROTATION, \
+                                POSSIBLE_LEVEL_BRIDGE5_ROTATION, \
+                                POSSIBLE_LEVEL_BRIDGE6_ROTATION, \
+                                POSSIBLE_LEVEL_BRIDGE7_ROTATION \
+                               }
+
+#define POSSIBLE_LEVEL_BRIDGE_SOURCE_VECTOR {                  \
+                                \
+                                POSSIBLE_LEVEL_BRIDGE2_SOURCE, \
+                                POSSIBLE_LEVEL_BRIDGE3_SOURCE, \
+                                POSSIBLE_LEVEL_BRIDGE4_SOURCE, \
+                                POSSIBLE_LEVEL_BRIDGE5_SOURCE, \
+                                POSSIBLE_LEVEL_BRIDGE6_SOURCE, \
+                                POSSIBLE_LEVEL_BRIDGE7_SOURCE \
+                               }
+
+#define POSSIBLE_LEVEL_BRIDGE_DEST_VECTOR {                  \
+                                \
+                                POSSIBLE_LEVEL_BRIDGE2_DEST, \
+                                POSSIBLE_LEVEL_BRIDGE3_DEST, \
+                                POSSIBLE_LEVEL_BRIDGE4_DEST, \
+                                POSSIBLE_LEVEL_BRIDGE5_DEST, \
+                                POSSIBLE_LEVEL_BRIDGE6_DEST, \
+                                POSSIBLE_LEVEL_BRIDGE7_DEST, \
+                               }

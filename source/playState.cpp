@@ -13,8 +13,9 @@ PlayState::~PlayState(){
 }
 
 void PlayState::enter(void* arg){
-    currentLevel = new Level(stateGraphicsManager, stateEventsManager);
-    printf("new level at %d\n", currentLevel);
+    printf("enter\n");
+    printf("received %d\n", ((bool&&)arg));
+    currentLevel = new Level(stateGraphicsManager, stateEventsManager, ((bool&&)arg));
 }
 
 void PlayState::exit(){

@@ -7,8 +7,9 @@ MenuState::MenuState(StateMachine* pStateMachine, GraphicsManager* stateGraphics
 State(pStateMachine, stateGraphicsManager, stateEventsManager),
 background(*stateGraphicsManager->loadTexture(MENUBACKGROUND_PATH)),
 title("Pontes de Konigsberg", *stateGraphicsManager->loadFont("./assets/anirm__.ttf"), TITLE_SIZE),
-playButton(stateGraphicsManager->loadFont("./assets/anirm__.ttf"), "Jogar", PLAY_BUTTON_SIZE, sf::Color::White, PLAY_BUTTON_POSITION),
-exitButton(stateGraphicsManager->loadFont("./assets/anirm__.ttf"), "Sair", PLAY_BUTTON_SIZE, sf::Color::White, EXIT_BUTTON_POSITION)
+play1Button(stateGraphicsManager->loadFont("./assets/anirm__.ttf"), "Jogar Primeira Fase", PLAY1_BUTTON_SIZE, sf::Color::White, PLAY1_BUTTON_POSITION),
+play2Button(stateGraphicsManager->loadFont("./assets/anirm__.ttf"), "Jogar Segunda Fase", PLAY2_BUTTON_SIZE, sf::Color::White, PLAY2_BUTTON_POSITION),
+exitButton(stateGraphicsManager->loadFont("./assets/anirm__.ttf"), "Sair", EXIT_BUTTON_SIZE, sf::Color::White, EXIT_BUTTON_POSITION)
 {
     background.setPosition(0, 0);
     sf::Vector2f canvasSize = stateGraphicsManager->getCanvasSize();
@@ -20,24 +21,34 @@ exitButton(stateGraphicsManager->loadFont("./assets/anirm__.ttf"), "Sair", PLAY_
 
     background.setColor(sf::Color(180, 180, 180, 255));
 
-    stateEventsManager->addClickable(GET_CLICKABLE_POINTER(playButton));
+    stateEventsManager->addClickable(GET_CLICKABLE_POINTER(play1Button));
+    stateEventsManager->addClickable(GET_CLICKABLE_POINTER(play2Button));
     stateEventsManager->addClickable(GET_CLICKABLE_POINTER(exitButton));
 }
 
 MenuState::~MenuState(){
-    stateEventsManager->removeClickable(GET_CLICKABLE_POINTER(playButton));
+    stateEventsManager->removeClickable(GET_CLICKABLE_POINTER(play1Button));
+    stateEventsManager->removeClickable(GET_CLICKABLE_POINTER(play2Button));
     stateEventsManager->removeClickable(GET_CLICKABLE_POINTER(exitButton));
 }
 
 
 void MenuState::update(){
-    if(playButton.isHovering()){
-        playButton.setFillColor(sf::Color::Blue);
-        if(playButton.wasClicked())
-            pStateMachine->changeState(2, nullptr);
+    if(play1Button.isHovering()){
+        play1Button.setFillColor(sf::Color::Blue);
+        if(play1Button.wasClicked())
+            pStateMachine->changeState(2, (void*)((bool&&)false));
     }
     else
-        playButton.setFillColor(sf::Color::White);
+        play1Button.setFillColor(sf::Color::White);
+
+    if(play2Button.isHovering()){
+        play2Button.setFillColor(sf::Color::Blue);
+        if(play2Button.wasClicked())
+            pStateMachine->changeState(2, (void*)((bool&&)true));
+    }
+    else
+        play2Button.setFillColor(sf::Color::White);
 
     if(exitButton.isHovering()){
         exitButton.setFillColor(sf::Color::Blue);
@@ -53,6 +64,7 @@ void MenuState::update(){
 void MenuState::render(){
     stateGraphicsManager->draw(GET_DRAWABLE_POINTER(background));
     stateGraphicsManager->draw(GET_DRAWABLE_POINTER(title));
-    stateGraphicsManager->draw(GET_DRAWABLE_POINTER(playButton));
+    stateGraphicsManager->draw(GET_DRAWABLE_POINTER(play1Button));
+    stateGraphicsManager->draw(GET_DRAWABLE_POINTER(play2Button));
     stateGraphicsManager->draw(GET_DRAWABLE_POINTER(exitButton));
 }
