@@ -6,7 +6,7 @@
 #include "TextButton.h"
 
 TextButton::TextButton(sf::Font* font, std::string text, int size, sf::Color color, sf::Vector2f position): sf::Text(text, *font, size), Clickable(){
-    
+    printf("new text button\n");
     if(!font)
         printf("WARNING: no font set!\n");
     

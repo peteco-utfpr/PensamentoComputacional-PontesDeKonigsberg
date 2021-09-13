@@ -5,8 +5,10 @@ background(*levelGraphicsManager->loadTexture(BACKGROUND_TEXTURE)),
 euler(*levelGraphicsManager->loadTexture(EULER_TEXTURE)),
 whiteFlag(*levelGraphicsManager->loadTexture(WHITE_FLAG_TEXTURE)),
 totalLoadedBridges(possible ? POSSIBLE_LEVEL_NUMBER_OF_BRIDGES : IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES),
+winMessage("Voce Conseguiu!", *levelGraphicsManager->loadFont("./assets/anirm__.ttf"), 50),
 retryButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "tentar novamente", 50, sf::Color::Yellow),
-giveUpButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Desistir", 50, sf::Color::Yellow, GIVE_UP_BUTTON_POSITION)
+giveUpButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Desistir", 50, sf::Color::Yellow, GIVE_UP_BUTTON_POSITION),
+exitButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Sair", 50, sf::Color::Yellow, LEVEL_EXIT_BUTTON_POSITION)
 {
     printf("building level\n");
 
@@ -15,6 +17,7 @@ giveUpButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Desistir", 50, s
 
     levelEventsManager->addClickable(GET_CLICKABLE_POINTER(retryButton));
     levelEventsManager->addClickable(GET_CLICKABLE_POINTER(giveUpButton));
+    levelEventsManager->addClickable(GET_CLICKABLE_POINTER(exitButton));
 
     //setting up bridges---------------
     levelBridges = new Bridge[possible ? POSSIBLE_LEVEL_NUMBER_OF_BRIDGES : IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES];
@@ -76,6 +79,7 @@ giveUpButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Desistir", 50, s
     euler.setPosition(ISLAND_NORTH_POSITION);
     euler.setScale({0.2, 0.2});
     //-------------
+    winMessage.setPosition(WIN_MESSAGE_POSITION);
 
     whiteFlag.setPosition(WHITE_FLAG_POSITION);
     whiteFlag.setScale(WHITE_FLAG_SCALE);
@@ -90,6 +94,7 @@ giveUpButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Desistir", 50, s
 Level::~Level(){
     levelEventsManager->removeClickable(GET_CLICKABLE_POINTER(retryButton));
     levelEventsManager->removeClickable(GET_CLICKABLE_POINTER(giveUpButton));
+    levelEventsManager->removeClickable(GET_CLICKABLE_POINTER(exitButton));
 
     for(int i = 0; i < totalLoadedBridges; i++)
         levelEventsManager->removeClickable(GET_CLICKABLE_POINTER(levelBridges[i]));
@@ -122,7 +127,6 @@ bool Level::update(){
                 it = levelGraph->getNextNode();
             }
         }
-    printf("move iterated\n");
 
     for(auto i = crossedBridges.begin(); i != crossedBridges.end(); i++)
         (*i)->setColor(sf::Color::Red);
@@ -138,7 +142,20 @@ bool Level::update(){
         }
         it = levelGraph->getNextNode();
     }
-    printf("stuck checked\n");
+
+    //checking if player won
+    won = true;
+    for(int i = 0; i < Island::total; i++){
+        levelGraph->iterateBySource(i);
+        Node* it = levelGraph->getNextNode();
+        while(it){
+            if(!it->linkedBridge->isCrossed()){
+                won = false;
+                break;
+            }
+            it = levelGraph->getNextNode();
+        }
+    }
 
     if(retryButton.isHovering()){
         retryButton.setFillColor(sf::Color::Blue);
@@ -155,6 +172,14 @@ bool Level::update(){
     }
     else
         giveUpButton.setFillColor(sf::Color::Yellow);
+    
+    if(exitButton.isHovering()){
+        exitButton.setFillColor(sf::Color::Blue);
+        if(won && exitButton.wasClicked())
+            return true;//quit
+    }
+    else
+        exitButton.setFillColor(sf::Color::Yellow);
 
     printf("all done\n");
     return false;
@@ -174,6 +199,10 @@ void Level::render(){
     if(stuck && tries > 10){
         levelGraphicsManager->draw(GET_DRAWABLE_POINTER(whiteFlag));
         levelGraphicsManager->draw(GET_DRAWABLE_POINTER(giveUpButton));
+    }
+    if(won){
+        levelGraphicsManager->draw(GET_DRAWABLE_POINTER(winMessage));
+        levelGraphicsManager->draw(GET_DRAWABLE_POINTER(exitButton));
     }
 }
 

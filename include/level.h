@@ -22,6 +22,7 @@ class Level{
         sf::Sprite background;
         sf::Sprite euler;
         sf::Sprite whiteFlag;
+        sf::Text winMessage;
 
         Bridge* levelBridges;
         int totalLoadedBridges;
@@ -34,10 +35,12 @@ class Level{
 
         std::vector<Bridge*> crossedBridges;
 
-        TextButton retryButton;
         bool stuck;
+        bool won;
 
+        TextButton retryButton;
         TextButton giveUpButton;
+        TextButton exitButton;
 
     public:
         Level(GraphicsManager* levelGraphicsManager = NULL, EventsManager* levelEventsManager = NULL, bool possible = false);

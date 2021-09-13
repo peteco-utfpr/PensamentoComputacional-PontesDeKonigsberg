@@ -11,8 +11,8 @@
 #define PLAY2_BUTTON_SIZE      50
 #define EXIT_BUTTON_SIZE      50
 #define TITLE_POSITION        {405.0f, 200.0f}
-#define PLAY1_BUTTON_POSITION  {860.0f, 500.0f}
-#define PLAY2_BUTTON_POSITION  {860.0f, 650.0f}
+#define PLAY1_BUTTON_POSITION  {600.0f, 500.0f}
+#define PLAY2_BUTTON_POSITION  {600.0f, 650.0f}
 #define EXIT_BUTTON_POSITION  {860.0f, 800.0f}
 
 class MenuState: public State{

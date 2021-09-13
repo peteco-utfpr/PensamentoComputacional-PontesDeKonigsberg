@@ -18,9 +18,11 @@ enum Island{
 #define BUTTON_FONT_PATH "./assets/anirm__.ttf"
 #define CROSSING_SOUND_PATH "./assets/steps.ogg"
 
-#define GIVE_UP_BUTTON_POSITION {100, 900}
-#define WHITE_FLAG_POSITION     {10, 900}
-#define WHITE_FLAG_SCALE        {0.1, 0.1}
+#define GIVE_UP_BUTTON_POSITION     {100, 900}
+#define LEVEL_EXIT_BUTTON_POSITION  {100, 900}
+#define WIN_MESSAGE_POSITION        {600, 500}
+#define WHITE_FLAG_POSITION         {10, 900}
+#define WHITE_FLAG_SCALE            {0.1, 0.1}
 
 
 // IMPOSSIBLE LEVEL DATA ---------------------------------------------------------------
