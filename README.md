@@ -1,7 +1,9 @@
-# PensamentoComputacional-PontesDeKonigsberg
+<h1># PensamentoComputacional-PontesDeKonigsberg</h1>
 
-Para executar o jogo, tenha certeza que tem instalado em seu computador o compilador mingw32.
-Foi-se utilizada a versão mais recente do compilador.
-Para compilar, abra a pasta no Windows PowerShell
+Baixar o Jogo:
+<p href="https://github.com/peteco-utfpr/PensamentoComputacional-PontesDeKonigsberg/releases/download/Download/PontesdeKonigsberg.zip">Aqui!</p>
+
+
+Para executar o jogo, 
 
 Para jogar jogo, clicar nas pontes para movimentar o personagem (representado por Euler)
