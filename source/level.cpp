@@ -10,7 +10,7 @@ retryButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "tentar novamente"
 giveUpButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Desistir", 50, sf::Color::Yellow, GIVE_UP_BUTTON_POSITION),
 exitButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Sair", 50, sf::Color::Yellow, LEVEL_EXIT_BUTTON_POSITION)
 {
-    printf("building level\n");
+
 
     this->levelGraphicsManager = levelGraphicsManager;
     this->levelEventsManager = levelEventsManager;
@@ -110,7 +110,6 @@ bool Level::update(){
         else
             levelBridges[i].setBright(false);
     
-    printf("bridges hover iterated\n");
 
     //checking for movement
     for(int i = 0; i < totalLoadedBridges; i++)
@@ -181,7 +180,6 @@ bool Level::update(){
     else
         exitButton.setFillColor(sf::Color::Yellow);
 
-    printf("all done\n");
     return false;
 
 }   

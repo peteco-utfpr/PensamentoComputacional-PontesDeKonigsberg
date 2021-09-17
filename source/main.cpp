@@ -7,6 +7,5 @@ int main(){
 
     game.run();
 
-    printf("bye\n");
     return 0;
 }
