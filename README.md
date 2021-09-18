@@ -1,6 +1,5 @@
 <h1># PensamentoComputacional-PontesDeKonigsberg</h1>
 Projeto para o <b>PETECO</b> (UTFPR), para ser futuramente utilizado pelos alunos da rede pública.<br>
-<h2>Instruções para Windows</h2><br>
 <h2>Baixar o Jogo:</h2>
 <a href="https://github.com/peteco-utfpr/PensamentoComputacional-PontesDeKonigsberg/releases/download/Download/PontesdeKonigsberg.zip">Aqui.</a><br>
 
