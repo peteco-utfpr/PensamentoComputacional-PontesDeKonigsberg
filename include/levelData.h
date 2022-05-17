@@ -11,12 +11,12 @@ enum Island{
     total
 };
 
-#define BACKGROUND_TEXTURE "./assets/fundo.png"
-#define EULER_TEXTURE "./assets/euler.png"
-#define BRIDGE_TEXTURE "./assets/ponte.png"
-#define WHITE_FLAG_TEXTURE "./assets/flag.png"
-#define BUTTON_FONT_PATH "./assets/anirm__.ttf"
-#define CROSSING_SOUND_PATH "./assets/steps.ogg"
+#define BACKGROUND_TEXTURE "../assets/fundo.png"
+#define EULER_TEXTURE "../assets/euler.png"
+#define BRIDGE_TEXTURE "../assets/ponte.png"
+#define WHITE_FLAG_TEXTURE "../assets/flag.png"
+#define BUTTON_FONT_PATH "../assets/anirm__.ttf"
+#define CROSSING_SOUND_PATH "../assets/steps.ogg"
 
 #define GIVE_UP_BUTTON_POSITION     {100, 900}
 #define LEVEL_EXIT_BUTTON_POSITION  {100, 900}

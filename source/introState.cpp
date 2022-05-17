@@ -4,7 +4,7 @@ IntroState::IntroState(StateMachine* pStateMachine, GraphicsManager* stateGraphi
 State(pStateMachine, stateGraphicsManager, stateEventsManager),
 background(*stateGraphicsManager->loadTexture(INTRO_BACKGROUND_PATH)),
 logo(*stateGraphicsManager->loadTexture(LOGO_PETECO_PATH)),
-title("Pontes de Konigsberg", *stateGraphicsManager->loadFont("./assets/anirm__.ttf"), INTRO_TITLE_SIZE){
+title("Pontes de Konigsberg", *stateGraphicsManager->loadFont("../assets/anirm__.ttf"), INTRO_TITLE_SIZE){
 
     background.setPosition(0, 0);
     sf::Vector2f canvasSize = stateGraphicsManager->getCanvasSize();

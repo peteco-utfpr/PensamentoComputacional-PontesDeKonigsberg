@@ -3,8 +3,8 @@
 #include "state.h"
 #include "textButton.h"
 
-#define MENUBACKGROUND_PATH "assets/konigsberg-1581-22.jpg"
-#define MENU_FONT_PATH "./assets/anirm__.ttf"
+#define MENUBACKGROUND_PATH "../assets/konigsberg-1581-22.jpg"
+#define MENU_FONT_PATH "../assets/anirm__.ttf"
 
 #define TITLE_SIZE            70
 #define PLAY1_BUTTON_SIZE      50

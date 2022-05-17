@@ -5,7 +5,7 @@ background(*levelGraphicsManager->loadTexture(BACKGROUND_TEXTURE)),
 euler(*levelGraphicsManager->loadTexture(EULER_TEXTURE)),
 whiteFlag(*levelGraphicsManager->loadTexture(WHITE_FLAG_TEXTURE)),
 totalLoadedBridges(possible ? POSSIBLE_LEVEL_NUMBER_OF_BRIDGES : IMPOSSIBLE_LEVEL_NUMBER_OF_BRIDGES),
-winMessage("Voce Conseguiu!", *levelGraphicsManager->loadFont("./assets/anirm__.ttf"), 50),
+winMessage("Voce Conseguiu!", *levelGraphicsManager->loadFont("../assets/anirm__.ttf"), 50),
 retryButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "tentar novamente", 50, sf::Color::Yellow),
 giveUpButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Desistir", 50, sf::Color::Yellow, GIVE_UP_BUTTON_POSITION),
 exitButton(levelGraphicsManager->loadFont(BUTTON_FONT_PATH), "Sair", 50, sf::Color::Yellow, LEVEL_EXIT_BUTTON_POSITION)
@@ -166,7 +166,7 @@ bool Level::update(){
 
     if(giveUpButton.isHovering()){
         giveUpButton.setFillColor(sf::Color::Blue);
-        if(stuck && tries > 10 && giveUpButton.wasClicked())
+        if(stuck && tries > 5 && giveUpButton.wasClicked())
             return true;//quit
     }
     else
@@ -194,7 +194,7 @@ void Level::render(){
     if(stuck)
         levelGraphicsManager->draw(GET_DRAWABLE_POINTER(retryButton));
 
-    if(stuck && tries > 10){
+    if(stuck && tries > 5){
         levelGraphicsManager->draw(GET_DRAWABLE_POINTER(whiteFlag));
         levelGraphicsManager->draw(GET_DRAWABLE_POINTER(giveUpButton));
     }

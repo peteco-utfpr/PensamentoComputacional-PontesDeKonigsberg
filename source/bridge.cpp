@@ -1,4 +1,4 @@
-#include "Bridge.h"
+#include "bridge.h"
 
 #include <iostream>
 #include <SFML/Graphics.hpp>

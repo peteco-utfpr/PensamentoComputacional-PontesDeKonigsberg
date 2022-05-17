@@ -17,7 +17,7 @@ typedef enum{
 #include "playState.h"
 #include "menuState.h"
 
-#define MUSIC_PATH "assets/music.ogg"
+#define MUSIC_PATH "../assets/music.ogg"
 
 class Game{
 

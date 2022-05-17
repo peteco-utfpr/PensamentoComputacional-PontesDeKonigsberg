@@ -3,7 +3,7 @@
 #include <SFML/System.hpp>
 
 
-#include "TextButton.h"
+#include "textButton.h"
 
 TextButton::TextButton(sf::Font* font, std::string text, int size, sf::Color color, sf::Vector2f position): sf::Text(text, *font, size), Clickable(){
     if(!font)

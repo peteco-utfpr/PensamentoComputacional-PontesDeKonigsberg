@@ -2,6 +2,7 @@
 #define _STATE_H
 
 #include <vector>
+#include <cstddef>
 
 #define GET_STATE_POINTER(x)  static_cast<State*>(&x)
 

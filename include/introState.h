@@ -3,9 +3,9 @@
 #include "graphicsManager.h"
 #include "eventsManager.h"
 
-#define INTRO_BACKGROUND_PATH "assets/konigsberg-1581-22.jpg"
-#define INTRO_FONT_PATH "./assets/anirm__.ttf"
-#define LOGO_PETECO_PATH "./assets/LogoPETECO.png"
+#define INTRO_BACKGROUND_PATH "../assets/konigsberg-1581-22.jpg"
+#define INTRO_FONT_PATH "../assets/anirm__.ttf"
+#define LOGO_PETECO_PATH "../assets/LogoPETECO.png"
 
 #define LOGO_POSITION                        {610.0f, 400.0f}
 #define INTRO_TITLE_SIZE                     70

@@ -6,10 +6,10 @@
 MenuState::MenuState(StateMachine* pStateMachine, GraphicsManager* stateGraphicsManager, EventsManager* stateEventsManager):
 State(pStateMachine, stateGraphicsManager, stateEventsManager),
 background(*stateGraphicsManager->loadTexture(MENUBACKGROUND_PATH)),
-title("Pontes de Konigsberg", *stateGraphicsManager->loadFont("./assets/anirm__.ttf"), TITLE_SIZE),
-play1Button(stateGraphicsManager->loadFont("./assets/anirm__.ttf"), "Jogar Primeira Fase", PLAY1_BUTTON_SIZE, sf::Color::White, PLAY1_BUTTON_POSITION),
-play2Button(stateGraphicsManager->loadFont("./assets/anirm__.ttf"), "Jogar Segunda Fase", PLAY2_BUTTON_SIZE, sf::Color::White, PLAY2_BUTTON_POSITION),
-exitButton(stateGraphicsManager->loadFont("./assets/anirm__.ttf"), "Sair", EXIT_BUTTON_SIZE, sf::Color::White, EXIT_BUTTON_POSITION)
+title("Pontes de Konigsberg", *stateGraphicsManager->loadFont("../assets/anirm__.ttf"), TITLE_SIZE),
+play1Button(stateGraphicsManager->loadFont("../assets/anirm__.ttf"), "Jogar Primeira Fase", PLAY1_BUTTON_SIZE, sf::Color::White, PLAY1_BUTTON_POSITION),
+play2Button(stateGraphicsManager->loadFont("../assets/anirm__.ttf"), "Jogar Segunda Fase", PLAY2_BUTTON_SIZE, sf::Color::White, PLAY2_BUTTON_POSITION),
+exitButton(stateGraphicsManager->loadFont("../assets/anirm__.ttf"), "Sair", EXIT_BUTTON_SIZE, sf::Color::White, EXIT_BUTTON_POSITION)
 {
     background.setPosition(0, 0);
     sf::Vector2f canvasSize = stateGraphicsManager->getCanvasSize();
